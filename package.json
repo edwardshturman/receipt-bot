@@ -1,0 +1,53 @@
+{
+  "name": "tahoe-bot",
+  "author": "Edward Shturman",
+  "bugs": "https://github.com/edwardshturman/tahoe-bot/issues",
+  "homepage": "https://github.com/edwardshturman/tahoe-bot",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "description": "Trip planning assistant for Tahoe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwardshturman/tahoe-bot.git"
+  },
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "standardx --env mocha",
+    "start": "node deploy-commands.js && node ."
+  },
+  "eslintConfig": {
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
+  },
+  "standardx": {
+    "ignore": [
+      "test.js"
+    ]
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "discord-api-types": "^0.35.0",
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1",
+    "mongoose": "^6.4.0",
+    "node-fetch": "^3.2.6",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "standardx": "^7.0.0"
+  },
+  "engines": {
+    "node": "16.9.1"
+  }
+}
