@@ -136,7 +136,7 @@ module.exports = {
             const Tab = require('../schemas/tab-schema');
 
             // Search for an existing tab and return if it exists
-            Tab.findOne({ name: interaction.options.getString('name') }).then((tabExists) => {
+            await Tab.findOne({ name: interaction.options.getString('name') }).then((tabExists) => {
                 if (tabExists) return interaction.reply({ content: 'This tab already exists! Please use a unique tab name.', ephemeral: true });
             });
 
