@@ -1,14 +1,14 @@
 {
-  "name": "tahoe-bot",
+  "name": "receipt-bot",
   "author": "Edward Shturman",
-  "bugs": "https://github.com/edwardshturman/tahoe-bot/issues",
-  "homepage": "https://github.com/edwardshturman/tahoe-bot",
+  "bugs": "https://github.com/edwardshturman/receipt-bot/issues",
+  "homepage": "https://github.com/edwardshturman/receipt-bot",
   "version": "0.0.1",
   "license": "UNLICENSED",
-  "description": "Trip planning assistant for Tahoe",
+  "description": "Simplify expense sharing and tracking with friends",
   "repository": {
     "type": "git",
-    "url": "https://github.com/edwardshturman/tahoe-bot.git"
+    "url": "https://github.com/edwardshturman/receipt-bot.git"
   },
   "main": "index.js",
   "private": true,

@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // Connect to MongoDB
 mongoose.connect(process.env.DBCONNECTION, () => {
-    console.log('Tahoe Bot connected to MongoDB!');
+    console.log('Receipt connected to MongoDB!');
 });
 
 // Launch instance of Discord
@@ -28,7 +28,7 @@ for (const file of commandFiles) {
 
 // Log launch, set status
 client.once('ready', () => {
-    console.log('Tahoe Bot is online!');
+    console.log('Receipt is online!');
     client.user.setActivity('/help | v0.1.0', { type: 'LISTENING' });
 });
 
