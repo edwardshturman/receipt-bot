@@ -29,7 +29,7 @@ for (const file of commandFiles) {
 // Log launch, set status
 client.once('ready', () => {
     console.log('Tahoe Bot is online!');
-    client.user.setActivity('/t | v0.0.1', { type: 'LISTENING' });
+    client.user.setActivity('/help | v0.1.0', { type: 'LISTENING' });
 });
 
 // Listens for new servers, might do something with this later
