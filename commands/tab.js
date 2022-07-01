@@ -1,6 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require("discord.js");
-const Cost = require("../schemas/debt-schema");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -118,7 +116,6 @@ module.exports = {
     async execute (interaction) {
         // Dependencies
         const Discord = require('discord.js');
-        const moment = require("moment");
 
         // On /tab help, display tab command help
         if (interaction.options.getSubcommand() === 'help') {
@@ -185,6 +182,21 @@ module.exports = {
                 interaction.reply({ embeds: [newTabEmbed] });
             });
 
+        // Execute /tab close
+        } else if (interaction.options.getSubcommand() === 'close') {
+
+            // Dependencies
+            require('mongoose');
+            const Tab = require('../schemas/tab-schema');
+
+            // Search for the specified tab and ignore if it doesn't exist
+            const tab = await Tab.findOne({ creditor: interaction.member.id, name: interaction.options.getString('name') });
+            if (!tab) return interaction.reply({ content: 'Sorry, this tab doesn\'t exist!', ephemeral: true });
+
+            // Delete the tab's associated role, then the tab entry
+            interaction.guild.roles.delete(tab.roleId);
+            await Tab.deleteOne({ creditor: interaction.member.id, name: interaction.options.getString('name') });
+            await interaction.reply({ content: 'The tab for ' + interaction.options.getString('name') + ' has been closed!'});
         }
     }
 };
