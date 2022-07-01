@@ -1,8 +1,8 @@
 // Dependencies
-require('@discordjs/builders');
-const fs = require('fs');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const fs = require('fs');
 require('dotenv').config();
 
 // Create commands array and identify commands by JS file type in ./commands/
