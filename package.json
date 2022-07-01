@@ -3,7 +3,7 @@
   "author": "Edward Shturman",
   "bugs": "https://github.com/edwardshturman/receipt-bot/issues",
   "homepage": "https://github.com/edwardshturman/receipt-bot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "UNLICENSED",
   "description": "Simplify expense sharing and tracking with friends",
   "repository": {
