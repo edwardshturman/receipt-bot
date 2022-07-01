@@ -147,8 +147,7 @@ module.exports = {
             let tabMembers = [];
             tabMembers.push(interaction.member.id);
             interaction.member.roles.add(newTabRole);
-            for (const optionIndex in interaction.options.data[0].options) {
-                const option = interaction.options.data[0].options[optionIndex];
+            for (const option of interaction.options.data[0].options) {
                 if (option.type !== 'USER') continue; // Ignore tab name field
                 if (option.value === interaction.member.id) continue; // Ignore self-mentions
                 if (tabMembers.includes(option.value)) continue; // Avoid acting on a mention more than once
@@ -172,10 +171,7 @@ module.exports = {
                     .addField('Created by:', '<@' + newTabEntry.creditorId + '>', false)
                     .addField('New role:', '<@&' + newTabEntry.roleId + '>', false);
                 let membersString = '';
-                for (const memberIndex in tabMembers) {
-                    const member = tabMembers[memberIndex];
-                    membersString += '<@' + member + '> ';
-                }
+                for (const member of tabMembers) membersString += '<@' + member + '> ';
                 newTabEmbed.addField('People:', membersString, false);
 
                 // Send newTabEmbed
