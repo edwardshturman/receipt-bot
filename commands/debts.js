@@ -8,17 +8,16 @@ module.exports = {
         .setDescription('Check your debts')
         .addStringOption(type =>
             type
-            .setName('type')
-            .setDescription('Choose to show debts you owe or owed to you')
-            .addChoices(
-                { name: 'owe', value: 'owe' },
-                { name: 'owed', value: 'owed' })
-            .setRequired(true)),
+                .setName('type')
+                .setDescription('Choose to show debts you owe or owed to you')
+                .addChoices(
+                    { name: 'owe', value: 'owe' },
+                    { name: 'owed', value: 'owed' })
+                .setRequired(true)),
 
     async execute (interaction) {
         const type = interaction.options.getString('type');
         if (type === 'owe') {
-
             // Dependencies
             const Discord = require('discord.js');
             require('mongoose');
@@ -32,11 +31,10 @@ module.exports = {
             const debtsEmbed = new Discord.MessageEmbed()
                 .setColor('#a7fbff')
                 .setTitle('Debts you owe');
-            debts.forEach(debt => debtsEmbed.addField(debt.name, '$' + debt.amount + ' to ' + '<@' + debt.creditorId + '>', false));
+            debts.forEach(debt => debtsEmbed.addField('• ' + debt.name, '$' + debt.amount + ' to ' + '<@' + debt.creditorId + '>', false));
             interaction.reply({ embeds: [debtsEmbed], ephemeral: true });
 
         } else if (type === 'owed') {
-
             // Dependencies
             const Discord = require('discord.js');
             require('mongoose');
@@ -50,7 +48,7 @@ module.exports = {
             const debtsEmbed = new Discord.MessageEmbed()
                 .setColor('#a7fbff')
                 .setTitle('Debts you\'re owed');
-            debts.forEach(debt => debtsEmbed.addField(debt.name, '$' + debt.amount + ' from ' + '<@' + debt.debtorId + '>', false));
+            debts.forEach(debt => debtsEmbed.addField('• ' + debt.name, '$' + debt.amount + ' from ' + '<@' + debt.debtorId + '>', false));
             interaction.reply({ embeds: [debtsEmbed], ephemeral: true });
         }
     }

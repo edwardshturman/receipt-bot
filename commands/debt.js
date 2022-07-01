@@ -58,7 +58,7 @@ module.exports = {
     async execute (interaction) {
         // Dependencies
         const Discord = require('discord.js');
-        const moment = require("moment");
+        const moment = require('moment');
 
         // On /debt help, display debt command help
         if (interaction.options.getSubcommand() === 'help') {
@@ -72,7 +72,6 @@ module.exports = {
 
         // Execute /debt add
         } else if (interaction.options.getSubcommand() === 'add') {
-
             // Dependencies
             const Discord = require('discord.js');
             require('mongoose');
@@ -131,7 +130,6 @@ module.exports = {
 
         // Execute /debt resolve
         } else if (interaction.options.getSubcommand() === 'resolve') {
-
             // Dependencies
             require('mongoose');
             const Debt = require('../schemas/debt-schema');
