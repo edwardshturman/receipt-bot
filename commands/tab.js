@@ -143,7 +143,7 @@ module.exports = {
             // Create the tab's associated role
             const newTabRole = await interaction.guild.roles.create({ name: '[Tab] ' + interaction.options.getString('name') });
 
-            // Add creditor and mentioned users to tab's role
+            // Add sender and mentioned users to tab's role
             let tabMembers = [];
             tabMembers.push(interaction.member.id);
             interaction.member.roles.add(newTabRole);
@@ -156,19 +156,18 @@ module.exports = {
                 tabMembers.push(tabMember.user.id);
             }
 
-            // Create a new tab entry using the tab name, creditor ID, associated role ID, and the array of members
+            // Create a new tab entry using the tab name, associated role ID, and the array of members
             new Tab({
                 name: interaction.options.getString('name'),
-                creditorId: interaction.member.id,
                 roleId: newTabRole.id,
                 members: tabMembers
             }).save().then((newTabEntry) => {
 
-                // Create newTabEmbed using the tab name, creditor, role, and members
+                // Create newTabEmbed using the tab name, sender, role, and members
                 const newTabEmbed = new Discord.MessageEmbed()
                     .setColor('#a7fbff')
                     .setTitle('New tab: ' + newTabEntry.name)
-                    .addField('Created by:', '<@' + newTabEntry.creditorId + '>', false)
+                    .addField('Created by:', '<@' + interaction.member.id + '>', false)
                     .addField('New role:', '<@&' + newTabEntry.roleId + '>', false);
                 let membersString = '';
                 for (const member of tabMembers) membersString += '<@' + member + '> ';
@@ -185,13 +184,13 @@ module.exports = {
             require('mongoose');
             const Tab = require('../schemas/tab-schema');
 
-            // Search for the specified tab and ignore if it doesn't exist
-            const tab = await Tab.findOne({ creditorId: interaction.member.id, name: interaction.options.getString('name') });
+            // Search for the specified tab and return if it doesn't exist
+            const tab = await Tab.findOne({ name: interaction.options.getString('name') });
             if (!tab) return interaction.reply({ content: 'Sorry, this tab doesn\'t exist!', ephemeral: true });
 
             // Delete the tab's associated role, then the tab entry
             interaction.guild.roles.delete(tab.roleId);
-            await Tab.deleteOne({ creditorId: interaction.member.id, name: interaction.options.getString('name') });
+            await Tab.deleteOne({ name: interaction.options.getString('name') });
             await interaction.reply({ content: 'The tab for ' + interaction.options.getString('name') + ' has been closed!'});
         }
     }

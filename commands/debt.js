@@ -136,7 +136,7 @@ module.exports = {
             require('mongoose');
             const Debt = require('../schemas/debt-schema');
 
-            // Search for the specified debt between the creditor and debtor and ignore if it doesn't exist
+            // Search for the specified debt between the creditor and debtor and return if it doesn't exist
             const debtExists = await Debt.findOne({ creditorId: interaction.member.id, debtorId: interaction.options.getMentionable('debtor').id, name: interaction.options.getString('name') });
             if (!debtExists) return interaction.reply({ content: 'Sorry, this debt doesn\'t exist!', ephemeral: true });
 

@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 
 const tabSchema = new Schema({
     name: String,
-    creditorId: String,
     roleId: String,
     members: Array
 }, { collection: 'tabs' });
