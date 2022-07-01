@@ -157,10 +157,10 @@ module.exports = {
                 tabMembers.push(tabMember.user.id);
             }
 
-            // Create a new tab entry using the tab name, creditor, associated role ID, and the array of members
+            // Create a new tab entry using the tab name, creditor ID, associated role ID, and the array of members
             new Tab({
                 name: interaction.options.getString('name'),
-                creditor: interaction.member.id,
+                creditorId: interaction.member.id,
                 roleId: newTabRole.id,
                 members: tabMembers
             }).save().then((newTabEntry) => {
@@ -169,7 +169,7 @@ module.exports = {
                 const newTabEmbed = new Discord.MessageEmbed()
                     .setColor('#a7fbff')
                     .setTitle('New tab: ' + newTabEntry.name)
-                    .addField('Created by:', '<@' + newTabEntry.creditor + '>', false)
+                    .addField('Created by:', '<@' + newTabEntry.creditorId + '>', false)
                     .addField('New role:', '<@&' + newTabEntry.roleId + '>', false);
                 let membersString = '';
                 for (const memberIndex in tabMembers) {
@@ -190,12 +190,12 @@ module.exports = {
             const Tab = require('../schemas/tab-schema');
 
             // Search for the specified tab and ignore if it doesn't exist
-            const tab = await Tab.findOne({ creditor: interaction.member.id, name: interaction.options.getString('name') });
+            const tab = await Tab.findOne({ creditorId: interaction.member.id, name: interaction.options.getString('name') });
             if (!tab) return interaction.reply({ content: 'Sorry, this tab doesn\'t exist!', ephemeral: true });
 
             // Delete the tab's associated role, then the tab entry
             interaction.guild.roles.delete(tab.roleId);
-            await Tab.deleteOne({ creditor: interaction.member.id, name: interaction.options.getString('name') });
+            await Tab.deleteOne({ creditorId: interaction.member.id, name: interaction.options.getString('name') });
             await interaction.reply({ content: 'The tab for ' + interaction.options.getString('name') + ' has been closed!'});
         }
     }

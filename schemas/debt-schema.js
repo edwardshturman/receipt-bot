@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const debtSchema = new Schema({
-    creditor: String,
-    debtor: String,
     name: String,
+    creditorId: String,
+    debtorId: String,
     description: String,
     amount: Number,
     date: String
