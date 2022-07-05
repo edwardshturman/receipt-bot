@@ -29,7 +29,7 @@ for (const file of commandFiles) {
 // Log launch, set status
 client.once('ready', () => {
     console.log('Receipt is online!');
-    client.user.setActivity('/help | v0.1.2', { type: 'LISTENING' });
+    client.user.setActivity('/help | v0.1.3', { type: 'LISTENING' });
 });
 
 // Listens for new servers, might do something with this later

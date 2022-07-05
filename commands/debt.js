@@ -36,7 +36,7 @@ module.exports = {
                 .addStringOption(description =>
                     description
                         .setName('description')
-                        .setDescription('A longer description, if necessary')
+                        .setDescription('A longer description, if necessary, to specify the date or other notes')
                         .setRequired(false)))
 
         // Resolve subcommand
@@ -58,7 +58,6 @@ module.exports = {
     async execute (interaction) {
         // Dependencies
         const Discord = require('discord.js');
-        const moment = require('moment');
 
         // On /debt help, display debt command help
         if (interaction.options.getSubcommand() === 'help') {
@@ -97,14 +96,13 @@ module.exports = {
                 const tabRoleMemberIds = tabRole.members.map(member => member.user.id);
                 for (const memberId of tabRoleMemberIds) {
                     if (memberId === interaction.member.id) continue; // Ignore self-debts
-                    // Create a new debt entry using the debt creditor ID, debtor ID, name, description if it exists, per-person amount, and current date + time
+                    // Create a new debt entry using the debt creditor ID, debtor ID, name, description if it exists, and per-person amount
                     await new Debt({
                         creditorId: interaction.member.id,
                         debtorId: memberId,
                         name: interaction.options.getString('name'),
                         description: interaction.options.getString('description'),
-                        amount: Math.round(100 * (interaction.options.getNumber('amount') / tabRoleMemberIds.length)) / 100,
-                        date: moment().format('dddd, MMMM Do, YYYY [at] h:mma')
+                        amount: Math.round(100 * (interaction.options.getNumber('amount') / tabRoleMemberIds.length)) / 100
                     }).save();
                 }
 
@@ -113,14 +111,13 @@ module.exports = {
                 interaction.channel.send(interaction.options.getMentionable('debtor').toString() + ', a new debt has been added for you.');
 
             } else if (type === 'user') {
-                // Create a new debt entry using the debt creditor ID, debtor ID, name, description if it exists, amount, and current date + time
+                // Create a new debt entry using the debt creditor ID, debtor ID, name, description if it exists, and amount
                 await new Debt({
                     creditorId: interaction.member.id,
                     debtorId: interaction.options.getMentionable('debtor').id,
                     name: interaction.options.getString('name'),
                     description: interaction.options.getString('description'),
-                    amount: interaction.options.getNumber('amount'),
-                    date: moment().format('dddd, MMMM Do, YYYY [at] h:mma')
+                    amount: interaction.options.getNumber('amount')
                 }).save();
 
                 // Send newDebtEmbed to creditor, ping debtor

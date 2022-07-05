@@ -8,8 +8,7 @@ const debtSchema = new Schema({
     creditorId: String,
     debtorId: String,
     description: String,
-    amount: Number,
-    date: String
+    amount: Number
 }, { collection: 'debts' });
 
 const Debt = mongoose.model('debt', debtSchema);
