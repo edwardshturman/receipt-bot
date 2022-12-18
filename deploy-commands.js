@@ -24,13 +24,22 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
         // Production environment, deploy commands globally
         if (process.env.ENV === 'PROD') {
+
+            // Deploy global commands
             await rest.put(
                 Routes.applicationCommands(process.env.CLIENTID),
                 { body: commands }
             );
 
-            // Development environment, deploy commands to test server
-        } else if (process.env.ENV === 'DEV') {
+            // Clear guild commands
+            await rest.put(
+                Routes.applicationGuildCommands(process.env.CLIENTID, process.env.GUILDID),
+                { body: [] }
+            );
+        }
+
+        // Development environment, deploy commands locally
+        else if (process.env.ENV === 'DEV') {
             await rest.put(
                 Routes.applicationGuildCommands(process.env.CLIENTID, process.env.GUILDID),
                 { body: commands }
