@@ -1,6 +1,4 @@
-const tabCommand = require('../commands/tab');
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const tabSchema = new Schema({
@@ -11,4 +9,4 @@ const tabSchema = new Schema({
 
 const Tab = mongoose.model('tab', tabSchema);
 
-module.exports = Tab;
+export default Tab;

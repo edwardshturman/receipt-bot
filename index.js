@@ -1,8 +1,18 @@
 // Dependencies
-require('discord.js');
-require('dotenv').config();
-const fs = require('fs');
-const mongoose = require('mongoose');
+import { Client, Collection, Intents } from 'discord.js';
+import mongoose from 'mongoose';
+import { config } from 'dotenv';
+
+// Commands
+import debtCommand from './commands/debt.js';
+import debtsCommand from './commands/debts.js';
+import helpCommand from './commands/help.js';
+import roadmapCommand from './commands/roadmap.js';
+import tabCommand from './commands/tab.js';
+
+// Load environment variables
+if (process.env.ENV !== 'PROD')
+    config();
 
 // Connect to MongoDB
 mongoose.connect(process.env.DBCONNECTION, () => {
@@ -10,7 +20,6 @@ mongoose.connect(process.env.DBCONNECTION, () => {
 });
 
 // Launch instance of Discord
-const { Client, Collection, Intents } = require('discord.js');
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS],
     partials: ['MESSAGE', 'GUILD_MEMBER', 'REACTION', 'USER']
@@ -19,12 +28,15 @@ const client = new Client({
 // Create collection of commands
 client.commands = new Collection();
 
-// Check for correct file type (JavaScript) and require command files when running given command
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+const commands = [];
+commands.push(debtCommand);
+commands.push(debtsCommand);
+commands.push(helpCommand);
+commands.push(roadmapCommand);
+commands.push(tabCommand);
+
+for (const command of commands)
     client.commands.set(command.data.name, command);
-}
 
 // Log launch, set status
 client.once('ready', () => {

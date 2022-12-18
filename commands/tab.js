@@ -1,6 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import * as Discord from 'discord.js';
+import Tab from '../schemas/tab-schema.js';
 
-module.exports = {
+const tabCommand = {
     data: new SlashCommandBuilder()
 
         // Tab command
@@ -114,8 +116,6 @@ module.exports = {
                         .setRequired(true))),
 
     async execute (interaction) {
-        // Dependencies
-        const Discord = require('discord.js');
 
         // On /tab help, display tab command help
         if (interaction.options.getSubcommand() === 'help') {
@@ -129,10 +129,6 @@ module.exports = {
 
         // Execute /tab add
         } else if (interaction.options.getSubcommand() === 'add') {
-            // Dependencies
-            const Discord = require('discord.js');
-            require('mongoose');
-            const Tab = require('../schemas/tab-schema');
 
             // Search for an existing tab and return if it exists
             await Tab.findOne({ name: interaction.options.getString('name') }).then((tabExists) => {
@@ -178,9 +174,6 @@ module.exports = {
 
         // Execute /tab close
         } else if (interaction.options.getSubcommand() === 'close') {
-            // Dependencies
-            require('mongoose');
-            const Tab = require('../schemas/tab-schema');
 
             // Search for the specified tab and return if it doesn't exist
             const tab = await Tab.findOne({ name: interaction.options.getString('name') });
@@ -193,3 +186,5 @@ module.exports = {
         }
     }
 };
+
+export default tabCommand;

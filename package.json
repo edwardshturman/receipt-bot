@@ -6,6 +6,7 @@
   "version": "0.1.4",
   "license": "UNLICENSED",
   "description": "Simplify expense sharing and tracking with friends",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/edwardshturman/receipt-bot.git"

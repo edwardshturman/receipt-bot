@@ -1,14 +1,13 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import * as Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+const roadmapCommand = {
     data: new SlashCommandBuilder()
         .setName('roadmap')
         .setDescription('Check the Receipt bot roadmap'),
 
     async execute (interaction) {
-        // Dependencies
-        const Discord = require('discord.js');
-        const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
         // Fetch issues from the GitHub repository
         const issues = await fetch('https://api.github.com/repos/edwardshturman/receipt-bot/issues?state=open').then(response => response.json());
@@ -20,7 +19,7 @@ module.exports = {
                 .setColor('#a7fbff')
                 .setTitle(issue.title)
                 .setURL(issue.html_url)
-                .setDescription(issue.body)
+                .setDescription(issue.body || '')
                 .setFooter(`${issue.labels.map(label => label.name).join(' // ')}`);
             embeds.push(embed);
         }
@@ -29,3 +28,5 @@ module.exports = {
         await interaction.reply({ embeds: embeds, ephemeral: true });
     }
 };
+
+export default roadmapCommand;

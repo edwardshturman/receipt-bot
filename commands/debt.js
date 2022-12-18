@@ -1,6 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import * as Discord from 'discord.js';
+import Debt from '../schemas/debt-schema.js';
 
-module.exports = {
+const debtCommand = {
     data: new SlashCommandBuilder()
 
         // Debt command
@@ -56,8 +58,6 @@ module.exports = {
                         .setRequired(true))),
 
     async execute (interaction) {
-        // Dependencies
-        const Discord = require('discord.js');
 
         // On /debt help, display debt command help
         if (interaction.options.getSubcommand() === 'help') {
@@ -71,10 +71,6 @@ module.exports = {
 
         // Execute /debt add
         } else if (interaction.options.getSubcommand() === 'add') {
-            // Dependencies
-            const Discord = require('discord.js');
-            require('mongoose');
-            const Debt = require('../schemas/debt-schema');
 
             // Search for an existing debt between the creditor and debtor and return if it exists
             await Debt.findOne({ creditorId: interaction.member.id, debtorId: interaction.options.getMentionable('debtor').id, name: interaction.options.getString('name') }).then((debtExists) => {
@@ -127,9 +123,6 @@ module.exports = {
 
         // Execute /debt resolve
         } else if (interaction.options.getSubcommand() === 'resolve') {
-            // Dependencies
-            require('mongoose');
-            const Debt = require('../schemas/debt-schema');
 
             // Search for the specified debt between the creditor and debtor and return if it doesn't exist
             const debtExists = await Debt.findOne({ creditorId: interaction.member.id, debtorId: interaction.options.getMentionable('debtor').id, name: interaction.options.getString('name') });
@@ -140,3 +133,5 @@ module.exports = {
         }
     }
 };
+
+export default debtCommand;

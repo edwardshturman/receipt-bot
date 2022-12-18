@@ -1,6 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import * as Discord from 'discord.js';
+import Debt from '../schemas/debt-schema.js';
 
-module.exports = {
+const debtsCommand = {
     data: new SlashCommandBuilder()
 
         // Debts command
@@ -18,10 +20,6 @@ module.exports = {
     async execute (interaction) {
         const type = interaction.options.getString('type');
         if (type === 'owe') {
-            // Dependencies
-            const Discord = require('discord.js');
-            require('mongoose');
-            const Debt = require('../schemas/debt-schema');
 
             // For each debt where the sender is a debtor, add to the debts array
             const debts = await Debt.find({ debtorId: interaction.member.id });
@@ -35,10 +33,6 @@ module.exports = {
             interaction.reply({ embeds: [debtsEmbed], ephemeral: true });
 
         } else if (type === 'owed') {
-            // Dependencies
-            const Discord = require('discord.js');
-            require('mongoose');
-            const Debt = require('../schemas/debt-schema');
 
             // For each debt where the sender is a creditor, add to the debts array
             const debts = await Debt.find({ creditorId: interaction.member.id });
@@ -53,3 +47,5 @@ module.exports = {
         }
     }
 };
+
+export default debtsCommand;

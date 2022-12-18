@@ -1,6 +1,4 @@
-const debtCommand = require('../commands/debt');
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const debtSchema = new Schema({
@@ -13,4 +11,4 @@ const debtSchema = new Schema({
 
 const Debt = mongoose.model('debt', debtSchema);
 
-module.exports = Debt;
+export default Debt;

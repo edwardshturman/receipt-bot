@@ -1,19 +1,25 @@
 // Dependencies
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const fs = require('fs');
-require('dotenv').config();
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v9';
+import { config } from 'dotenv';
 
-// Create commands array and identify commands by JS file type in ./commands/
+// Commands
+import debtCommand from './commands/debt.js';
+import debtsCommand from './commands/debts.js';
+import helpCommand from './commands/help.js';
+import roadmapCommand from './commands/roadmap.js';
+import tabCommand from './commands/tab.js';
+
+// Load environment variables
+if (process.env.ENV !== 'PROD')
+    config();
+
 const commands = [];
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-
-// Push commands to commands array, for each command in ./commands/
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
-}
+commands.push(debtCommand.data.toJSON());
+commands.push(debtsCommand.data.toJSON());
+commands.push(helpCommand.data.toJSON());
+commands.push(roadmapCommand.data.toJSON());
+commands.push(tabCommand.data.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
