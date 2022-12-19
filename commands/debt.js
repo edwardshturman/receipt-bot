@@ -67,7 +67,7 @@ const debtCommand = {
                 .setDescription('Used to add and resolve debts as a group using tabs or 1:1 between each other')
                 .addField('add', '\`/debt add [ping who owes you; can be a tab or server member] [debt name] [amount] [optional: description]\`', false)
                 .addField('resolve', '\`/debt resolve [ping who owed you] [debt name]\`', false);
-            await interaction.reply({ embeds: [debtHelpEmbed] });
+            await interaction.reply({ embeds: [debtHelpEmbed], ephemeral: true });
 
         // Execute /debt add
         } else if (interaction.options.getSubcommand() === 'add') {

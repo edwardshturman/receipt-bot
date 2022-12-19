@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.1.4 — 2022-12-18
+## 0.1.5 — 2022-12-18
 
 ### Added
 
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Help commands send embeds ephemerally (only the person that used the command can see it) so as to prevent spam
 - A lot of boring backend stuff like code quality :)
 
 ## 0.1.2 — 2022-07-01

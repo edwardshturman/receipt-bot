@@ -19,7 +19,7 @@ const helpCommand = {
             .addField('\`/debt\`', 'Log and track an expense with a tab or server member.\n\`/debt help\` for more info', false)
             .addField('\`/debts\`', 'List debts you owe or those owed to you.\n\`/debts [owe/owed]\`', false)
             .addField('\`/roadmap\`', 'View planned features for Receipt', false);
-        await interaction.reply({ embeds: [helpEmbed] });
+        await interaction.reply({ embeds: [helpEmbed], ephemeral: true });
     }
 };
 

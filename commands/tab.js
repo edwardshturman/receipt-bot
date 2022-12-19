@@ -125,7 +125,7 @@ const tabCommand = {
                 .setDescription('Used to add and resolve debts as a group by creating a role that deletes itself once all debts are paid')
                 .addField('add', 'Add a tab and create the associated role\n\`/tab add [tab name] [first person other than you] [second person other than you] [optional: continue adding...]\`', false)
                 .addField('close', 'Close a tab — note: debts must be marked as paid unless \`allow-force-resolve\` is set to \`true\` using \`/config\`\n\`/tab close [tab name]\`', false);
-            await interaction.reply({ embeds: [tabHelpEmbed] });
+            await interaction.reply({ embeds: [tabHelpEmbed], ephemeral: true });
 
         // Execute /tab add
         } else if (interaction.options.getSubcommand() === 'add') {
