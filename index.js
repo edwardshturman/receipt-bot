@@ -9,13 +9,14 @@ import debtsCommand from './commands/debts.js';
 import helpCommand from './commands/help.js';
 import roadmapCommand from './commands/roadmap.js';
 import tabCommand from './commands/tab.js';
+import bugCommand from './commands/bug.js';
 
 // Load environment variables
 if (process.env.ENV !== 'PROD')
     config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.DBCONNECTION, () => {
+mongoose.connect(process.env.DB_CONNECTION, () => {
     console.log('Receipt connected to MongoDB!');
 });
 
@@ -34,6 +35,7 @@ commands.push(debtsCommand);
 commands.push(helpCommand);
 commands.push(roadmapCommand);
 commands.push(tabCommand);
+commands.push(bugCommand);
 
 for (const command of commands)
     client.commands.set(command.data.name, command);
@@ -77,4 +79,4 @@ client.on('messageCreate', (message) => {
 });
 
 // Login to the bot
-client.login(process.env.TOKEN);
+client.login(process.env.BOT_TOKEN);
