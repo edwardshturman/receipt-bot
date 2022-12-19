@@ -4,24 +4,16 @@ import { Routes } from 'discord-api-types/v9';
 import { config } from 'dotenv';
 
 // Commands
-import debtCommand from './commands/debt.js';
-import debtsCommand from './commands/debts.js';
-import helpCommand from './commands/help.js';
-import roadmapCommand from './commands/roadmap.js';
-import tabCommand from './commands/tab.js';
-import bugCommand from './commands/bug.js';
+import * as commandsList from './commands.js';
 
 // Load environment variables
 if (process.env.ENV !== 'PROD')
     config();
 
+// Load commands
 const commands = [];
-commands.push(debtCommand.data.toJSON());
-commands.push(debtsCommand.data.toJSON());
-commands.push(helpCommand.data.toJSON());
-commands.push(roadmapCommand.data.toJSON());
-commands.push(tabCommand.data.toJSON());
-commands.push(bugCommand.data.toJSON());
+for (const command of commandsList.default)
+    commands.push(command.data.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
 
