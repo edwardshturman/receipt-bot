@@ -8,127 +8,129 @@ const tabCommand = {
         // Tab command
         .setName('tab')
         .setDescription('Start or close a tab')
-        .addSubcommand(helpSubcommand =>
-            helpSubcommand
+        .addSubcommand(
+            helpSubcommand => helpSubcommand
                 .setName('help')
                 .setDescription('Display tab command help'))
 
         // Tab add subcommand
-        .addSubcommand(addSubcommand =>
-            addSubcommand
+        .addSubcommand(
+            addSubcommand => addSubcommand
                 .setName('add')
                 .setDescription('Start a tab to add debts to — minimum of two people other than you')
-                .addStringOption(name =>
-                    name
+                .addStringOption(
+                    name => name
                         .setName('name')
                         .setDescription('A brief, unique name to identify the tab by; e.g. "Summer 2022 Tahoe trip"')
                         .setRequired(true))
-                .addUserOption(user1 =>
-                    user1
+                .addUserOption(
+                    user1 => user1
                         .setName('user1')
                         .setDescription('The first person, other than you, to share the cost')
                         .setRequired(true))
-                .addUserOption(user2 =>
-                    user2
+                .addUserOption(
+                    user2 => user2
                         .setName('user2')
                         .setDescription('The second person, other than you, to share the cost')
                         .setRequired(true))
-                .addUserOption(user3 =>
-                    user3
+                .addUserOption(
+                    user3 => user3
                         .setName('user3')
                         .setDescription('The third person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user4 =>
-                    user4
+                .addUserOption(
+                    user4 => user4
                         .setName('user4')
                         .setDescription('The fourth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user5 =>
-                    user5
+                .addUserOption(
+                    user5 => user5
                         .setName('user5')
                         .setDescription('The fifth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user6 =>
-                    user6
+                .addUserOption(
+                    user6 => user6
                         .setName('user6')
                         .setDescription('The sixth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user7 =>
-                    user7
+                .addUserOption(
+                    user7 => user7
                         .setName('user7')
                         .setDescription('The seventh person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user8 =>
-                    user8
+                .addUserOption(
+                    user8 => user8
                         .setName('user8')
                         .setDescription('The eighth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user9 =>
-                    user9
+                .addUserOption(
+                    user9 => user9
                         .setName('user9')
                         .setDescription('The ninth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user10 =>
-                    user10
+                .addUserOption(
+                    user10 => user10
                         .setName('user10')
                         .setDescription('The tenth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user11 =>
-                    user11
+                .addUserOption(
+                    user11 => user11
                         .setName('user11')
                         .setDescription('The eleventh person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user12 =>
-                    user12
+                .addUserOption(
+                    user12 => user12
                         .setName('user12')
                         .setDescription('The twelfth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user13 =>
-                    user13
+                .addUserOption(
+                    user13 => user13
                         .setName('user13')
                         .setDescription('The thirteenth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user14 =>
-                    user14
+                .addUserOption(
+                    user14 => user14
                         .setName('user14')
                         .setDescription('The fourteenth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user15 =>
-                    user15
+                .addUserOption(
+                    user15 => user15
                         .setName('user15')
                         .setDescription('The fifteenth person, other than you, to share the cost')
                         .setRequired(false))
-                .addUserOption(user16 =>
-                    user16
+                .addUserOption(
+                    user16 => user16
                         .setName('user16')
                         .setDescription('The sixteenth person, other than you, to share the cost')
                         .setRequired(false)))
 
         // Tab close subcommand
-        .addSubcommand(closeSubcommand =>
-            closeSubcommand
+        .addSubcommand(
+            closeSubcommand => closeSubcommand
                 .setName('close')
                 .setDescription('Close a tab')
-                .addStringOption(name =>
-                    name
+                .addStringOption(
+                    name => name
                         .setName('name')
                         .setDescription('The brief, unique name you identified the tab by')
                         .setRequired(true))),
 
     async execute (interaction) {
-
         // On /tab help, display tab command help
         if (interaction.options.getSubcommand() === 'help') {
             const tabHelpEmbed = new Discord.MessageEmbed()
                 .setColor('#a7fbff')
                 .setTitle('Tab command')
                 .setDescription('Used to add and resolve debts as a group by creating a role that deletes itself once all debts are paid')
-                .addField('add', 'Add a tab and create the associated role\n\`/tab add [tab name] [first person other than you] [second person other than you] [optional: continue adding...]\`', false)
-                .addField('close', 'Close a tab — note: debts must be marked as paid unless \`allow-force-resolve\` is set to \`true\` using \`/config\`\n\`/tab close [tab name]\`', false);
+                .setFields([
+                    { name: 'add', value: 'Add a tab and create the associated role\n\`/tab add [tab name] [first person other than you] [second person other than you] [optional: continue adding...]\`', inline: false },
+                    { name: 'close', value: 'Close a tab — note: debts must be marked as paid unless \`allow-force-resolve\` is set to \`true\` using \`/config\`\n\`/tab close [tab name]\`', inline: false }
+                ]);
             await interaction.reply({ embeds: [tabHelpEmbed], ephemeral: true });
+        }
 
         // Execute /tab add
-        } else if (interaction.options.getSubcommand() === 'add') {
+        else if (interaction.options.getSubcommand() === 'add') {
 
             // Search for an existing tab and return if it exists
             await Tab.findOne({ name: interaction.options.getString('name') }).then((tabExists) => {
@@ -162,8 +164,10 @@ const tabCommand = {
                 const newTabEmbed = new Discord.MessageEmbed()
                     .setColor('#a7fbff')
                     .setTitle('New tab: ' + newTabEntry.name)
-                    .addField('Created by:', '<@' + interaction.member.id + '>', false)
-                    .addField('New role:', '<@&' + newTabEntry.roleId + '>', false);
+                    .setFields([
+                        { name: 'Created by:', value: '<@' + interaction.member.id + '>', inline: false },
+                        { name: 'New role:', value: '<@&' + newTabEntry.roleId + '>', inline: false }
+                    ]);
                 let membersString = '';
                 for (const member of tabMembers) membersString += '<@' + member + '> ';
                 newTabEmbed.addField('People:', membersString, false);
@@ -171,9 +175,10 @@ const tabCommand = {
                 // Send newTabEmbed
                 interaction.reply({ embeds: [newTabEmbed] });
             });
+        }
 
         // Execute /tab close
-        } else if (interaction.options.getSubcommand() === 'close') {
+        else if (interaction.options.getSubcommand() === 'close') {
 
             // Search for the specified tab and return if it doesn't exist
             const tab = await Tab.findOne({ name: interaction.options.getString('name') });

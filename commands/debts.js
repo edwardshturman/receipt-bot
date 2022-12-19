@@ -8,8 +8,8 @@ const debtsCommand = {
         // Debts command
         .setName('debts')
         .setDescription('Check your debts')
-        .addStringOption(type =>
-            type
+        .addStringOption(
+            type => type
                 .setName('type')
                 .setDescription('Choose to show debts you owe or owed to you')
                 .addChoices(
@@ -19,8 +19,8 @@ const debtsCommand = {
 
     async execute (interaction) {
         const type = interaction.options.getString('type');
-        if (type === 'owe') {
 
+        if (type === 'owe') {
             // For each debt where the sender is a debtor, add to the debts array
             const debts = await Debt.find({ debtorId: interaction.member.id });
             if (debts.length < 1) return interaction.reply({ content: 'You don\'t have any pending debts you owe.', ephemeral: true });
@@ -31,9 +31,9 @@ const debtsCommand = {
                 .setTitle('Debts you owe');
             debts.forEach(debt => debtsEmbed.addField('• ' + debt.name, '$' + debt.amount + ' to ' + '<@' + debt.creditorId + '>', false));
             interaction.reply({ embeds: [debtsEmbed], ephemeral: true });
+        }
 
-        } else if (type === 'owed') {
-
+        else if (type === 'owed') {
             // For each debt where the sender is a creditor, add to the debts array
             const debts = await Debt.find({ creditorId: interaction.member.id });
             if (debts.length < 1) return interaction.reply({ content: 'You don\'t have any pending debts you\'re owed.', ephemeral: true });
