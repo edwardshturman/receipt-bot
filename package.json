@@ -29,11 +29,6 @@
       ]
     }
   },
-  "standardx": {
-    "ignore": [
-      "test.js"
-    ]
-  },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
