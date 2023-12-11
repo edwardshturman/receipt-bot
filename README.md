@@ -12,7 +12,7 @@
 
 ## On the Future of Receipt
 
-> ℹ️ Hey there, thanks for checking out Receipt! This was a Discord bot I made for my group of friends after our high school graduation in May 2021. In our trip planning channel, where we use [Register](https://github.com/edwardshturman/register-bot) and [Rollup](https://github.com/edwardshturman/rollup-bot), even with our event planning and thread control needs met, we'd find ourselves sending a lot of messages related to expenses, making it pretty annoying to track who owes who, for what. Receipt was the solution.
+> ℹ️ Hey there, thanks for checking out Receipt! This was a Discord bot I made for my group of friends after our high school graduation in May 2021. In our trip planning channel, where we use [Register](https://github.com/edwardshturman/register-bot) and [Rollup](https://github.com/edwardshturman/rollup-bot), even with our event planning and thread control needs met, we'd find ourselves sending a lot of messages related to expenses, making it tedious to track who owes who, for what. Receipt was the solution.
 >
 > 💡 I've learned a lot since first writing Receipt in Summer 2022. I've also since made a couple [other](https://github.com/edwardshturman/register-bot) [bots](https://github.com/edwardshturman/rollup-bot) for the same group of friends. Maintaining these bots, which were updated once every couple months or so, soon became unsustainable as I found myself repeating changes for what felt like multiple isolated projects, rather than a collection of bots.
 >
